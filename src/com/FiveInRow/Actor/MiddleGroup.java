@@ -13,7 +13,9 @@ import com.badlogic.gdx.utils.Align;
 
 import com.FiveInRow.MainGame;
 import com.FiveInRow.Actor.BaseGroup;
-//import com.FiveInRow.Data.IDataModel;
+import com.FiveInRow.Data.DataImp;
+import com.FiveInRow.Data.DataInterface;
+import com.FiveInRow.Data.Pattern;
 import com.FiveInRow.Res.Res;
 
 /**
@@ -21,85 +23,93 @@ import com.FiveInRow.Res.Res;
  */
 public class MiddleGroup extends BaseGroup {
 	
-	// ��Ƭ��������
-	private static final int CARD_ROW_SUM = 15;
-	private static final int CARD_COL_SUM = 15;
 
-    private Image bgImage,white,black;
-    
-    private Boolean turn;
-    
+	private static final int ROW_SUM = 15;
+	private static final int COL_SUM = 15;
 
-/*  
-    private Sound moveSound;
-    
+    private Image bgImage;
 
-    private Sound mergeSound;
-    */
-
-
-   // private IDataModel dataModel;
+    private DataImp DataModel;
     
     public MiddleGroup(MainGame mainGame) {
         super(mainGame);
         init();
     }
-
-    private Boolean NextTurn() {
-    	turn= !turn;
-    	return turn;
-    }
     
     private void init() {
-    	turn=true;
         bgImage = new Image(getMainGame().getAtlas().findRegion(Res.AtlasNames.GAME_Broad));
         addActor(bgImage);
-        
+        DataModel=new DataImp(ROW_SUM,COL_SUM,new DataListenerImpl());
         setSize(bgImage.getWidth(), bgImage.getHeight());
         addListener(new InputListenerImpl());
         
     }
     
-    /**
-     * 输入监听器的实现
-     */
+
     private class InputListenerImpl extends InputListener {
 
 
 
         @Override
         public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-            Image temp;
+            int row,col;             
+            row=Regularize(x)-1;
+            col=Regularize(y)-1;
             
+            if (DataModel.isBlank(row, col)){
+            	AddPieceActor(row,col,DataModel.turn);
+            	DataModel.AddPiece(row,col,DataModel.turn);   
+            	DataModel.NextTurn();
+            	DataModel.Computer_play();
 
-            if (turn) {
-            	temp= new Image(getMainGame().getAtlas().findRegion(Res.AtlasNames.GAME_White));
-            	temp.setPosition((RegularizePosition(x)-temp.getWidth()/2), (RegularizePosition(y)-temp.getHeight()/2));
-            	addActor(temp);
-            } else{
-            	temp= new Image(getMainGame().getAtlas().findRegion(Res.AtlasNames.GAME_Black));
-            	temp.setPosition((RegularizePosition(x)-temp.getWidth()/2), (RegularizePosition(y)-temp.getHeight()/2));
-            	addActor(temp);
+            		
+            		/*Gdx.app.setLogLevel(Application.LOG_DEBUG);
+            	    Gdx.app.log("RightSling",i+":"+Pattern.GetRightSling(DataModel.data,i,14-i)+""); */       			
+
+               
             }
-            
-            NextTurn();
             return true;
         }
         
         public int Regularize(float x){
-        	Gdx.app.setLogLevel(Application.LOG_DEBUG);
-        	Gdx.app.log("five","Regularize " + Math.round((x)/34.5));
         	return (int) (Math.round((x)/34.5));
-        }
-
-        public int RegularizePosition(float x){
-        	return (int) (Regularize(x)*34.5-8);
         }
        
     }
     
-    public void restartGame() {
+    private void AddPieceActor(int row,int col,boolean turn){
+    	Image temp;
+    	int RegX,RegY;
+    	RegX=(int) ((row+1)*34.5-8);;
+        RegY=(int) ((col+1)*34.5-8);;
+        
+    	 if (!turn) {
+         	temp= new Image(getMainGame().getAtlas().findRegion(Res.AtlasNames.GAME_White));
+     	} else{
+         	temp= new Image(getMainGame().getAtlas().findRegion(Res.AtlasNames.GAME_Black));
+         }
+         
+        temp.setPosition((RegX-temp.getWidth()/2), (RegY-temp.getHeight()/2));
+     	addActor(temp);
+     	
+        
+    }
+    
+    private class DataListenerImpl implements DataInterface.DataListener {
+
+		@Override
+		public void PlacePiece(int row, int col,int player) {
+/*		 	Gdx.app.setLogLevel(Application.LOG_DEBUG);
+	    	Gdx.app.log("model_play_actor","add row " + row + "add col" + col);*/
+			AddPieceActor(row,col,DataModel.turn);
+		}
+		
+
       
+    }
+    
+    public void restartGame() {
+      init();
     }
 
 }

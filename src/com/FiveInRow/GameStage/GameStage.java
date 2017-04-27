@@ -9,7 +9,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.FiveInRow.MainGame;
 
 import com.FiveInRow.Actor.MiddleGroup;
-import com.FiveInRow.Actor.BottomGroup;
+//import com.FiveInRow.Actor.BottomGroup;
 
 import com.FiveInRow.Res.Res;
 import com.FiveInRow.GameStage.BaseStage;
@@ -22,7 +22,7 @@ public class GameStage extends BaseStage {
     private MiddleGroup middleGroup;
 
 
-    private BottomGroup bottomGroup;
+ //   private BottomGroup bottomGroup;
 
     public GameStage(MainGame mainGame, Viewport viewport) {
         super(mainGame, viewport);
@@ -41,16 +41,16 @@ public class GameStage extends BaseStage {
         
 
         /*
-         * �ײ���Ա��
+         * 锟阶诧拷锟斤拷员锟斤拷
          */
 /*        bottomGroup = new BottomGroup(getMainGame());
-        bottomGroup.setX(getWidth() / 2 - bottomGroup.getWidth() / 2);				// ˮƽ����
-        bottomGroup.setY(middleGroup.getY() / 2 - bottomGroup.getHeight() / 2);		// �ײ���ֱ����
+        bottomGroup.setX(getWidth() / 2 - bottomGroup.getWidth() / 2);				// 水平锟斤拷锟斤拷
+        bottomGroup.setY(middleGroup.getY() / 2 - bottomGroup.getHeight() / 2);		// 锟阶诧拷锟斤拷直锟斤拷锟斤拷
         addActor(bottomGroup);
 */
 
         /*
-         * �����̨������
+         * 锟斤拷锟斤拷锟教拷锟斤拷锟斤拷锟�
          */
         addListener(new InputListenerImpl());
     }
@@ -67,8 +67,8 @@ public class GameStage extends BaseStage {
     	@Override
         public boolean keyDown(InputEvent event, int keycode) {
         	
-        	 * ���� PC ƽ̨, ��ͬʱͨ������������Ϸ,
-        	 * ����������İ���, ���ݷ�����ƶ���Ƭ
+        	 * 锟斤拷锟斤拷 PC 平台, 锟斤拷同时通锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷戏,
+        	 * 锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷陌锟斤拷锟�, 锟斤拷锟捷凤拷锟斤拷锟斤拷贫锟斤拷锟狡�
         	 
         	switch (keycode) {
 				case Input.Keys.UP: {
@@ -95,7 +95,7 @@ public class GameStage extends BaseStage {
         @Override
         public boolean keyUp(InputEvent event, int keycode) {
             if (keycode == Input.Keys.BACK) {
-                // ������Ϸ��̨���水�·��ؼ��������, ��ʾ�Ƿ��˳���Ϸ����ʾ�˳�ȷ����̨��
+                // 锟斤拷锟斤拷锟斤拷戏锟斤拷台锟斤拷锟芥按锟铰凤拷锟截硷拷锟斤拷锟斤拷锟斤拷锟�, 锟斤拷示锟角凤拷锟剿筹拷锟斤拷戏锟斤拷锟斤拷示锟剿筹拷确锟斤拷锟斤拷台锟斤拷
                 getMainGame().getGameScreen().setShowExitConfirmStage(true);
                 return true;
             }
