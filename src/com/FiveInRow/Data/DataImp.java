@@ -72,15 +72,15 @@ public class DataImp implements DataInterface {
     }
 
     public void Computer_play(){
-    	ArrayList<String> movelist=Move.GetMove(data.clone(), 2);
+    	/*ArrayList<String> movelist=Move.GetMove(data.clone(), 2);
     	String move=movelist.get(0);
-    	String[] moves = move.split(",");
-/*    	String[] feedback=AI.alphaBeta(data, 2, -1000000, +1000000, 2).split(":");
-    	String[] moves = feedback[1].split(",");*/
+    	String[] moves = move.split(",");*/
+    	String[] feedback=AI.alphaBeta(data, 3, -1000000, +1000000, 2).split(":");
+    	String[] moves = feedback[1].split(",");
     	int pick_row=Integer.valueOf(moves[0]);
     	int pick_col=Integer.valueOf(moves[1]);
-    	Gdx.app.setLogLevel(Application.LOG_DEBUG);
-		Gdx.app.log("model_play",pick_row+","+pick_col);
+/*    	Gdx.app.setLogLevel(Application.LOG_DEBUG);
+		Gdx.app.log("model_play",pick_row+","+pick_col);*/
     	if (isBlank(pick_row,pick_col)){
     		AddPiece(pick_row,pick_col,turn);
     		if (dataListener != null) {
