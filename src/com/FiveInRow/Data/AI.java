@@ -65,7 +65,9 @@ public class AI {
 				if (beta<=alpha){
 	    			break;
 	    		}
+
 	    	}
+
 	    	return Best+":"+returnMove;
 	    }
 	}
