@@ -72,7 +72,7 @@ public class DataImp implements DataInterface {
     }
 
     public void Computer_play(){
-    	/*ArrayList<String> movelist=Move.GetMove(data.clone(), 2);
+/*    	ArrayList<String> movelist=Move.GetMove(data.clone(), 2);
     	String move=movelist.get(0);
     	String[] moves = move.split(",");*/
     	String[] feedback=AI.alphaBeta(data, 3, -1000000, +1000000, 2).split(":");

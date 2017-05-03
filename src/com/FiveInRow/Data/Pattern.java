@@ -60,7 +60,7 @@ public class Pattern {
 		ArrayList<Integer> out= new ArrayList<Integer>();
 		ArrayList<String> InputString = new ArrayList<String>();
 		int max=10;
-		String h,v,l,r,rh,rv,rl,rr;
+		String h,v;
 		
 		for(int i=0;i<=14;i++){
 			if (player==1){
@@ -80,6 +80,7 @@ public class Pattern {
 				i=GetCounterSight(i);
 			}
 			InputString.add(i);
+			
 		}
 		ArrayList<String> Right = GetRightSling(Array);
 		for(String i:Right){
@@ -89,6 +90,7 @@ public class Pattern {
 			InputString.add(i);
 		}
 		for(String i:InputString){
+			
 		out.add(PatternScan(i));
 		}
 		
@@ -122,48 +124,32 @@ public class Pattern {
 	
 	public static ArrayList<String> GetLeftSling(int[][] Array){
 		ArrayList<String> outputList= new ArrayList<String>();
-		for (int AnchorX=0;AnchorX<=14;AnchorX++){
-			int AnchorY=AnchorX;
-			String output ="";
-			int xstart=AnchorX-14;
-			int xend=AnchorX+14;
-			int ystart=AnchorY+14;
-			int yend=AnchorY-14;
-			while(xstart<=xend && ystart>=yend){
-				try{ 
-				output=output+Array[xstart][ystart];
-				} catch (ArrayIndexOutOfBoundsException e){
-					
-				}	
-				xstart++;
-				ystart--;		
-			}
-			outputList.add(output);
-		}
+	    for( int k = 0 ; k < Array.length * 2 ; k++ ) {
+	    	String output ="";
+	        for( int j = 0 ; j <= k ; j++ ) {
+	            int i = k - j;
+	            if( i < Array.length && j < Array.length ) {
+	                output=output+Array[i][j];
+	            }
+	        }
+	        outputList.add(output);
+	    }
 		return outputList;
 	}
 	
 	public static ArrayList<String> GetRightSling(int[][] Array){
 		ArrayList<String> outputList= new ArrayList<String>();
-		for (int AnchorX=0;AnchorX<=14;AnchorX++){
-			int AnchorY=14-AnchorX;
-			String output ="";
-			int xstart=AnchorX-14;
-			int xend=AnchorX+14;
-			int ystart=AnchorY-14;
-			int yend=AnchorY+14;
-			while(xstart<=xend && ystart<=yend){
-				try{ 
-				output=output+Array[xstart][ystart];
-				} catch (ArrayIndexOutOfBoundsException e){
-					
-				}	
-				xstart++;
-				ystart++;		
-			}
-			outputList.add(output);
-			
-		}
+	    for( int k = Array.length-1 ; k >= -(Array.length-1) ; k=k-1 ) {
+	    	String output ="";
+	        for( int j = 0 ; j <= (Array.length-1)-k ; j++ ) {
+	            int i = k + j;
+	            if( i >=0 && i < Array.length && j < Array.length ) {
+	            	
+	                output=output+Array[j][i];
+	            }
+	        }
+	        outputList.add(output);
+	    }
 		return outputList;
 	}
 

@@ -5,9 +5,17 @@ import java.util.ArrayList;
 public class AI {
 	public static String alphaBeta(int[][] Array, int depth, int alpha, int beta,int player)
 	{	
-	    if( depth == 0 || Pattern.CheckWin(Array))
+	    if( Pattern.CheckWin(Array))
 	    {
-	         int value = Pattern.GetEval(Array,2);
+	    	 if (player==1){
+	    		 return "1000000:";
+	    	 } else {
+	    		 return "-1000000:";
+	    	 }
+	        
+	    }
+	    if (depth==0){
+	    	 int value = Pattern.GetEval(Array,2)-Pattern.GetEval(Array,1);
 	         return value+":";
 	    }
 	    int Best;
@@ -15,10 +23,10 @@ public class AI {
 	    int feedbackScore;
 	    String returnMove="";
 	    if (player==2){
-	    	Best=-1000000;
+	    	Best=-10000000;
 	    	ArrayList<String> ChildNode= Move.GetMove(Array, player);
 	    	for (String moveString: ChildNode){
-	    		if (Pattern.GetEval(Move.PlayMove(Array, moveString, player),player)>=10000){
+	    		if (Pattern.GetEval(Move.PlayMove(Array, moveString, player),player)>=500){
 	    			feedbackScore=1000000;
 	    		} else {
 	    		feedback=alphaBeta(Move.PlayMove(Array, moveString, player),depth-1,alpha,beta,1).split(":");
@@ -37,11 +45,12 @@ public class AI {
 	    	}
 	    	return Best+":"+returnMove;
 	    } else {
-	    	Best=1000000;
+	    	Best=10000000;
 	    	ArrayList<String> ChildNode= Move.GetMove(Array, player);
 	    	for (String moveString: ChildNode){
-	    		if (Pattern.GetEval(Move.PlayMove(Array, moveString, player),player)>=10000){
-	    			feedbackScore=1000000;
+	    		
+	    		if (Pattern.GetEval(Move.PlayMove(Array, moveString, player),player)>=500){
+	    			feedbackScore=-1000000;
 	    		} else {
 	    		feedback=alphaBeta(Move.PlayMove(Array, moveString, player),depth-1,alpha,beta,2).split(":");
 	    		feedbackScore=Integer.parseInt(feedback[0]);

@@ -61,6 +61,8 @@ public class MiddleGroup extends BaseGroup {
             	DataModel.AddPiece(row,col,DataModel.turn);   
             	DataModel.NextTurn();
             	DataModel.Computer_play();
+            	/*Gdx.app.setLogLevel(Application.LOG_DEBUG);
+            	Gdx.app.log("getEval:",Pattern.GetEval(DataModel.data,1)+"");*/
 
             		
             		/*Gdx.app.setLogLevel(Application.LOG_DEBUG);
